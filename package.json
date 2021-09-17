@@ -15,7 +15,7 @@
     "build": "microbundle --compress --no-sourcemap --no-raw",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
-    "test": "jest & size-limit && wait"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -44,14 +44,12 @@
   ],
   "devDependencies": {
     "@arkweid/lefthook": "0.7",
-    "@size-limit/preset-small-lib": "5",
     "@testing-library/react": "12",
     "@types/jest": "27",
     "@types/react": "17",
     "@types/react-dom": "17",
     "@testing-library/jest-dom": "5",
     "@types/testing-library__jest-dom": "5",
-    "@types/testing-library__react": "10",
     "clean-publish": "2",
     "effector": "22.1.1",
     "effector-react": "22",
@@ -60,17 +58,10 @@
     "prettier": "2",
     "react": "17",
     "react-dom": "17",
-    "size-limit": "5",
     "ts-jest": "27",
     "typescript": "4.4.3"
   },
   "peerDependencies": {
     "effector": ">= 21.8.0"
-  },
-  "size-limit": [
-    {
-      "limit": "300 B",
-      "path": "dist/index.cjs"
-    }
-  ]
+  }
 }
