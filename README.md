@@ -155,3 +155,7 @@ Props of component passed to slot can be defined as generic.
 ```typescript
 const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
 ```
+
+## Useful links
+* [Vue.js docs](https://v3.vuejs.org/guide/component-slots.html)
+* [Svelte docs](https://svelte.dev/docs#slot)
