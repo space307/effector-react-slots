@@ -17,9 +17,11 @@ Using React with Effector we can achieve slot goals without the problems describ
 
 ```sh
 npm install @space307/effector-react-slots
+```
 
-# or
+or
 
+```sh
 yarn add @space307/effector-react-slots
 ```
 
