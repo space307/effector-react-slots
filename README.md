@@ -125,7 +125,7 @@ const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
 
 ### createSlotFactory
 
-Function that returns a function for creating slots and an API for working with slots.
+Function that returns a function for creating slots and an [API](###api) for working with slots.
 
 ### API
 
