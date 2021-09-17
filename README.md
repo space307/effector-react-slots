@@ -77,7 +77,7 @@ export const ComponentWithSlot = () => (
 
 ### Step 5
 
-Render something inside slot. Based on data from feature toogle of your app, for example.
+Render something inside slot. For example, based on data from feature toogle of your app.
 
 ```tsx
 import { split } from 'effector';
