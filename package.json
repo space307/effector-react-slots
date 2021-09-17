@@ -13,8 +13,7 @@
     "build": "microbundle --compress --no-sourcemap --no-raw",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
-    "size": "npm run build && size-limit",
-    "test": "jest"
+    "test": "jest & size-limit && wait"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: 'node:14.15.3-alpine3.10'
+
+    steps:
+      - name: Checkouut
+        uses: actions/checkout@v2
+
+      - name: Install and build
+        run: |
+          npm ci --silent
+          npm run build
+
+      - name: Run tests
+        run: npm t
