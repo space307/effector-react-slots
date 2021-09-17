@@ -1,6 +1,6 @@
 {
   "name": "@space307/effector-react-slots",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Slots factory",
   "type": "module",
   "source": "src/index.ts",
