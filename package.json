@@ -1,0 +1,56 @@
+{
+  "name": "effector-slots",
+  "version": "1.0.0",
+  "description": "Slots factory",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": "./dist/index.modern.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
+  "scripts": {
+    "clean-publish": "clean-publish",
+    "build": "microbundle --compress --no-sourcemap --no-raw",
+    "prettier:check": "prettier --check 'src/**/*.ts'",
+    "prettier:fix": "prettier --write 'src/**/*.ts'",
+    "size": "npm run build && size-limit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/space307/effector-react-slots.git"
+  },
+  "author": "Viktor Pasynok",
+  "maintainers": [
+    {
+      "name": "Viktor Pasynok",
+      "email": "v.pasynok@space307.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/space307/effector-react-slots/issues"
+  },
+  "homepage": "https://github.com/space307/effector-react-slots#readme",
+  "devDependencies": {
+    "@arkweid/lefthook": "0.7",
+    "@size-limit/preset-small-lib": "5",
+    "@types/react": "17",
+    "clean-publish": "2",
+    "effector": "22.1.1",
+    "effector-react": "22.0.4",
+    "microbundle": "0.13.3",
+    "prettier": "2",
+    "react": "17",
+    "size-limit": "5",
+    "typescript": "4.4.3"
+  },
+  "peerDependencies": {
+    "effector": ">= 21.8.0"
+  },
+  "size-limit": [
+    {
+      "limit": "300 B",
+      "path": "dist/index.cjs"
+    }
+  ]
+}

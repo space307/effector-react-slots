@@ -1,0 +1,15 @@
+{
+  "files": [
+    ".github",
+    ".lefthook",
+    ".vscode",
+    ".editorconfig",
+    ".gitignore",
+    ".prettierrc",
+    "lefthook.yml",
+    "CONTRIBUTING.md"
+  ],
+  "fields": ["devDependencies", "scripts"],
+  "packageManager": "npm",
+  "access": "public"
+}

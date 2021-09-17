@@ -7,13 +7,12 @@ type Store<S> = {
   readonly component: Component<S>;
 };
 
-export const createSlotFactory = ({ slots }: { readonly slots: Record<string, string> }) => {
+export const createSlotFactory = ({ slots }: { readonly slots: Record<string, string | number> }) => {
   type Id = typeof slots[keyof typeof slots];
 
   const api = {
     remove: createEvent<{ readonly id: Id }>(),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    set: createEvent<{ readonly id: Id } & { readonly component: Component<any> }>(),
+    set: createEvent<{ readonly id: Id; readonly component: Component<any> }>(),
   };
 
   const createSlot = <P>({ id }: { readonly id: Id }) => {

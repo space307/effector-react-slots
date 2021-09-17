@@ -1,0 +1,9 @@
+commit-msg:
+  scripts:
+    'template_checker':
+      runner: bash
+pre-commit:
+  parallel: true
+  commands:
+    prettier:
+      run: npm run prettier:check
