@@ -36,6 +36,12 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
+  "keywords": [
+    "effector",
+    "react",
+    "slots",
+    "slot"
+  ],
   "devDependencies": {
     "@arkweid/lefthook": "0.7",
     "@size-limit/preset-small-lib": "5",
