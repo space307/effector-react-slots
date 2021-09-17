@@ -16,11 +16,11 @@ Using React with Effector we can achieve slot goals without the problems describ
 ### Step 1
 
 ```sh
-npm install --save-dev @space307/publish-wizard
+npm install --save-dev @space307/effector-react-slots
 
 # or
 
-yarn add @space307/publish-wizard --dev
+yarn add @space307/effector-react-slots
 ```
 
 ### Step 2
