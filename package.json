@@ -11,8 +11,8 @@
   "scripts": {
     "clean-publish": "clean-publish",
     "build": "microbundle --compress --no-sourcemap --no-raw",
-    "prettier:check": "prettier --check 'src/**/*.ts'",
-    "prettier:fix": "prettier --write 'src/**/*.ts'",
+    "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
+    "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
     "size": "npm run build && size-limit"
   },
   "repository": {
