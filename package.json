@@ -1,6 +1,6 @@
 {
   "name": "@space307/effector-react-slots",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Slots factory",
   "type": "module",
   "source": "src/index.ts",
@@ -9,6 +9,7 @@
   "module": "./dist/index.module.js",
   "unpkg": "./dist/index.umd.js",
   "types": "dist/index.d.ts",
+  "private": false,
   "scripts": {
     "clean-publish": "npm run build && clean-publish && wait",
     "build": "microbundle --compress --no-sourcemap --no-raw",
