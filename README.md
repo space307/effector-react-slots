@@ -16,7 +16,7 @@ Using React with Effector we can achieve slot goals without the problems describ
 ### Step 1
 
 ```sh
-npm install --save @space307/effector-react-slots
+npm install @space307/effector-react-slots
 
 # or
 
