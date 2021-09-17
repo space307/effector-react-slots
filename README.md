@@ -9,6 +9,8 @@ In large projects this is not convenient, because it generates "props hell" or s
 
 Using React with Effector we can achieve slot goals without the problems described above.
 
+[Try it out](https://codesandbox.com)
+
 ## Usage
 
 ### Step 1
@@ -102,11 +104,11 @@ split({
 });
 ```
 
-[Try it](https://codesandbox.com)
+[Try it out](https://codesandbox.com)
 
 ## TypeScript guide
 
-Best practices for writing well-typed code
+Best practices for writing well-typed code.
 
 ### createSlot
 
@@ -115,7 +117,6 @@ Props of component passed to slot can be defined as generic
 ```typescript
 const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
 ```
-
 
 ## API
 
