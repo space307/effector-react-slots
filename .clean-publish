@@ -7,7 +7,10 @@
     ".gitignore",
     ".prettierrc",
     "lefthook.yml",
-    "CONTRIBUTING.md"
+    "CONTRIBUTING.md",
+    "src",
+    "tsconfig.json",
+    "jest.config.cjs"
   ],
   "fields": ["devDependencies", "scripts"],
   "packageManager": "npm",

@@ -8,8 +8,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
   "unpkg": "./dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "clean-publish": "clean-publish",
+    "clean-publish": "npm run build && clean-publish && wait",
     "build": "microbundle --compress --no-sourcemap --no-raw",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
@@ -31,6 +32,9 @@
     "url": "https://github.com/space307/effector-react-slots/issues"
   },
   "homepage": "https://github.com/space307/effector-react-slots#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "devDependencies": {
     "@arkweid/lefthook": "0.7",
     "@size-limit/preset-small-lib": "5",
@@ -38,6 +42,9 @@
     "@types/jest": "^27.0.1",
     "@types/react": "17",
     "@types/react-dom": "^17.0.9",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@types/testing-library__jest-dom": "^5.14.1",
+    "@types/testing-library__react": "^10.2.0",
     "clean-publish": "2",
     "effector": "22.1.1",
     "effector-react": "22.0.4",
@@ -47,6 +54,7 @@
     "react": "17",
     "react-dom": "^17.0.2",
     "size-limit": "5",
+    "ts-jest": "^27.0.5",
     "typescript": "4.4.3"
   },
   "peerDependencies": {
@@ -57,11 +65,5 @@
       "limit": "300 B",
       "path": "dist/index.cjs"
     }
-  ],
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@types/testing-library__jest-dom": "^5.14.1",
-    "@types/testing-library__react": "^10.2.0",
-    "ts-jest": "^27.0.5"
-  }
+  ]
 }

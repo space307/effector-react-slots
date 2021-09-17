@@ -9,7 +9,7 @@ In large projects this is not convenient, because it generates "props hell" or s
 
 Using React with Effector we can achieve slot goals without the problems described above.
 
-[Try it out](https://codesandbox.com)
+[Try it out](https://codesandbox.io/s/effector-react-slots-example-eppjr?file=/src/App.tsx)
 
 ## Usage
 
@@ -32,7 +32,6 @@ import { createSlotFactory } from '@space307/effector-react-slots';
 
 export const SLOTS = {
   FOO: 'foo',
-  BAR: 'bar',
 };
 
 export const { api, createSlot } = createSlotFactory({ slots: SLOTS });
@@ -86,25 +85,27 @@ Render something inside slot. For example, based on data from feature toogle of 
 import { split } from 'effector';
 
 import { $featureToggle } from './featureToggle';
-import { api, SLOT } from './slots';
+import { api, SLOTS } from './slots';
 
-const MyAwesomeFeature = () => <p>Look at my horse!</p>;
-const VeryAwesomeFeature = () => <p>My horse is amaizing!</p>;
+const MyAwesomeFeature = () => <p>Look at my horse</p>;
+const VeryAwesomeFeature = () => <p>My horse is amaizing</p>;
 
 split({
   source: $featureToggle,
   match: {
-    awesome: (data) => msg.type === 'awesome',
-    veryAwesome: (data) => msg.type === 'veryAwesome',
+    awesome: (data) => data === 'awesome',
+    veryAwesome: (data) => data === 'veryAwesome',
+    hideAll: (data) => data === 'hideAll',
   },
   cases: {
-    awesome: api.set.prepend(() => ({ id: SLOT.FOO, Component: MyAwesomeFeature })),
-    veryAwesome: api.set.prepend(() => ({ id: SLOT.FOO, Component: VeryAwesomeFeature })),
+    awesome: api.set.prepend(() => ({ id: SLOTS.FOO, component: MyAwesomeFeature })),
+    veryAwesome: api.set.prepend(() => ({ id: SLOTS.FOO, component: VeryAwesomeFeature })),
+    hideAll: api.remove.prepend(() => ({ id: SLOTS.FOO })),
   },
 });
 ```
 
-[Try it out](https://codesandbox.com)
+[Try it out](https://codesandbox.io/s/effector-react-slots-example-eppjr?file=/src/App.tsx)
 
 ## TypeScript guide
 
