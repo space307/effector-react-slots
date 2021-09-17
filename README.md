@@ -14,7 +14,6 @@ Using React with Effector we can achieve slot goals without the problems describ
 
 ### Step 1
 
-Install `@space307/effector-react-slots`
 
 ```
 npm i -save @space307/effector-react-slots
@@ -25,14 +24,14 @@ npm i -save @space307/effector-react-slots
 Define constant with slots name and call `makeCreateSlot`.
 
 ```typescript
-import { makeCreateSlot } from '@space307/effector-react-slots';
+import { createSlotFactory } from '@space307/effector-react-slots';
 
-export const SLOT_ID = {
+export const SLOTS = {
   FOO: 'foo',
   BAR: 'bar',
 };
 
-export const { api, createSlot } = makeCreateSlot<typeof SLOT_ID[keyof typeof SLOT_ID]>();
+export const { api, createSlot } = createSlotFactory({ slots: SLOTS });
 ```
 
 ### Step 3
@@ -43,9 +42,9 @@ Create Slot component.
 import React from 'react';
 import { useStoreMap } from 'effector-react';
 
-import { createSlot, SLOT_ID } from './slots';
+import { createSlot, SLOTS } from './slots';
 
-const { $slot } = createSlot({ id: SLOT_ID.FOO });
+const { $slot } = createSlot({ id: SLOTS.FOO });
 
 export const FooSlot = () => {
   const Component = useStoreMap({
@@ -83,7 +82,7 @@ Render something inside slot. For example, based on data from feature toogle of 
 import { split } from 'effector';
 
 import { $featureToggle } from './featureToggle';
-import { api, SLOT_ID } from './slots';
+import { api, SLOT } from './slots';
 
 const MyAwesomeFeature = () => <p>Look at my horse!</p>;
 const VeryAwesomeFeature = () => <p>My horse is amaizing!</p>;
@@ -95,8 +94,8 @@ split({
     veryAwesome: (data) => msg.type === 'veryAwesome',
   },
   cases: {
-    awesome: api.set.prepend(() => ({ id: SLOT_ID.FOO, Component: MyAwesomeFeature })),
-    veryAwesome: api.set.prepend(() => ({ id: SLOT_ID.FOO, Component: VeryAwesomeFeature })),
+    awesome: api.set.prepend(() => ({ id: SLOT.FOO, Component: MyAwesomeFeature })),
+    veryAwesome: api.set.prepend(() => ({ id: SLOT.FOO, Component: VeryAwesomeFeature })),
   },
 });
 ```
@@ -105,7 +104,7 @@ split({
 
 ## API
 
-### makeCreateSlot
+### createSlotFactory
 
 Function that returns a function for creating slots and an API for working with slots.
 
@@ -113,7 +112,7 @@ Function that returns a function for creating slots and an API for working with 
 
 ### createSlot
 
-function, takes the slot name. returns the table containing the slot
+Function, takes the slot name. Returns the table containing the slot
 
 #### set
 
