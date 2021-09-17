@@ -148,11 +148,9 @@ api.remove({ id: 'foo' });
 
 ## TypeScript guide
 
-Best practices for writing well-typed code.
-
 ### createSlot
 
-Props of component passed to slot can be defined as generic
+Props of component passed to slot can be defined as generic.
 
 ```typescript
 const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
