@@ -109,6 +109,43 @@ split({
 
 [Try it out](https://codesandbox.io/s/effector-react-slots-example-eppjr?file=/src/App.tsx)
 
+
+## API
+
+### createSlotFactory
+
+Function that returns a function for creating slots and an API for manipulating them.
+
+```typescript
+import { createSlotFactory } from '@space307/effector-react-slots';
+
+const { createSlot, api } = createSlotFactory({ slots: { FOO: 'foo' } });
+```
+
+### createSlot
+
+Function, takes the slot id. Returns the store containing the slot.
+
+```typescript
+const { $slot } = createSlot({ id: 'foo' });
+```
+
+### api.set
+
+Method for rendering component in a slot. Takes slot id and component.
+
+```typescript
+api.set({ id: 'foo', component: Foo });
+```
+
+### api.remove
+
+Method to stop rendering component in a slot. Takes slot id.
+
+```typescript
+api.remove({ id: 'foo' });
+```
+
 ## TypeScript guide
 
 Best practices for writing well-typed code.
@@ -120,19 +157,3 @@ Props of component passed to slot can be defined as generic
 ```typescript
 const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
 ```
-
-## API
-
-### createSlotFactory
-
-Function that returns a function for creating slots and an [API](###api) for working with slots.
-
-### API
-
-### createSlot
-
-Function, takes the slot name. Returns the table containing the slot
-
-#### set
-
-#### remove
