@@ -7,9 +7,7 @@ type Store<S> = {
   readonly component: Component<S>;
 };
 
-export const createSlotFactory = ({ slots }: { readonly slots: Record<string, string | number> }) => {
-  type Id = typeof slots[keyof typeof slots];
-
+export const createSlotFactory = <Id>({ slots }: { readonly slots: Record<string, Id> }) => {
   const api = {
     remove: createEvent<{ readonly id: Id }>(),
     set: createEvent<{ readonly id: Id; readonly component: Component<any> }>(),
@@ -24,18 +22,18 @@ export const createSlotFactory = ({ slots }: { readonly slots: Record<string, st
       remove: (state) => ({ ...state, component: defaultToStore.component }),
       set: (state, payload: Component<P>) => ({ ...state, component: payload }),
     });
-    const guardFilter = (payload: { readonly id: Id }) => payload.id === id;
+    const isSlotEventCalling = (payload: { readonly id: Id }) => payload.id === id;
 
     guard({
       clock: api.remove,
-      filter: guardFilter,
+      filter: isSlotEventCalling,
       target: slotApi.remove,
     });
 
     sample({
       clock: guard({
         clock: api.set,
-        filter: guardFilter,
+        filter: isSlotEventCalling,
       }),
       fn: ({ component }) => component,
       target: slotApi.set,
@@ -51,3 +49,13 @@ export const createSlotFactory = ({ slots }: { readonly slots: Record<string, st
     createSlot,
   };
 };
+
+// const SLOTS = {
+//   FOO: 'foo',
+// } as const;
+
+// const { api, createSlot } = createSlotFactory<typeof SLOTS[keyof typeof SLOTS]>({ slots: SLOTS });
+// const { $slot } = createSlot({ id: SLOTS.FOO });
+
+// api.remove({ id: SLOTS.FOO });
+// api.set({ id: SLOTS.FOO, component });
