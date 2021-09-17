@@ -49,13 +49,3 @@ export const createSlotFactory = <Id>({ slots }: { readonly slots: Record<string
     createSlot,
   };
 };
-
-// const SLOTS = {
-//   FOO: 'foo',
-// } as const;
-
-// const { api, createSlot } = createSlotFactory<typeof SLOTS[keyof typeof SLOTS]>({ slots: SLOTS });
-// const { $slot } = createSlot({ id: SLOTS.FOO });
-
-// api.remove({ id: SLOTS.FOO });
-// api.set({ id: SLOTS.FOO, component });

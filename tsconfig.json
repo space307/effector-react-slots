@@ -18,7 +18,7 @@
     "noEmit": false,
     "noUncheckedIndexedAccess": true,
     "declaration": true,
-    "typeRoots": ["overrides"]
+    "typeRoots": ["overrides", "node_modules/@types"]
   },
   "exclude": ["node_modules", "**/node_modules/*", "dist", "**/dist/*"]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "effector-react-slots",
+  "name": "@space307/effector-react-slots",
   "version": "0.0.1",
   "description": "Slots factory",
   "type": "module",
@@ -13,7 +13,8 @@
     "build": "microbundle --compress --no-sourcemap --no-raw",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
-    "size": "npm run build && size-limit"
+    "size": "npm run build && size-limit",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -34,13 +35,18 @@
   "devDependencies": {
     "@arkweid/lefthook": "0.7",
     "@size-limit/preset-small-lib": "5",
+    "@testing-library/react": "^12.1.0",
+    "@types/jest": "^27.0.1",
     "@types/react": "17",
+    "@types/react-dom": "^17.0.9",
     "clean-publish": "2",
     "effector": "22.1.1",
     "effector-react": "22.0.4",
+    "jest": "^27.2.0",
     "microbundle": "0.13.3",
     "prettier": "2",
     "react": "17",
+    "react-dom": "^17.0.2",
     "size-limit": "5",
     "typescript": "4.4.3"
   },
@@ -52,5 +58,11 @@
       "limit": "300 B",
       "path": "dist/index.cjs"
     }
-  ]
+  ],
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@types/testing-library__jest-dom": "^5.14.1",
+    "@types/testing-library__react": "^10.2.0",
+    "ts-jest": "^27.0.5"
+  }
 }
