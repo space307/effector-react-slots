@@ -1,6 +1,5 @@
 # Effector React Slots
 
-## What is a slot?
 
 A slot is a place in a component where you can insert any unknown component. It's a well-known abstraction used by frameworks
 such as Vue.js and Svelte.
@@ -10,18 +9,21 @@ In large projects this is not convenient, because it generates "props hell" or s
 
 Using React with Effector we can achieve slot goals without the problems described above.
 
-## How to achieve
+## Usage
 
 ### Step 1
 
+```sh
+npm install --save-dev @space307/publish-wizard
 
-```
-npm i -save @space307/effector-react-slots
+# or
+
+yarn add @space307/publish-wizard --dev
 ```
 
 ### Step 2
 
-Define constant with slots name and call `makeCreateSlot`.
+Define constant with slots name and call `createSlotFactory`.
 
 ```typescript
 import { createSlotFactory } from '@space307/effector-react-slots';
@@ -101,6 +103,19 @@ split({
 ```
 
 [Try it](https://codesandbox.com)
+
+## TypeScript guide
+
+Best practices for writing well-typed code
+
+### createSlot
+
+Props of component passed to slot can be defined as generic
+
+```typescript
+const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
+```
+
 
 ## API
 
