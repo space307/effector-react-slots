@@ -1,5 +1,8 @@
 # Effector React Slots
 
+☄️ Effector library for slots implementation in React.
+
+## What is a slot
 
 A slot is a place in a component where you can insert any unknown component. It's a well-known abstraction used by frameworks
 such as Vue.js and Svelte.
@@ -157,5 +160,6 @@ const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
 ```
 
 ## Useful links
+* [Slots proposal](https://github.com/WICG/webcomponents/blob/gh-pages/proposals/Slots-Proposal.md)
 * [Vue.js docs](https://v3.vuejs.org/guide/component-slots.html)
 * [Svelte docs](https://svelte.dev/docs#slot)
