@@ -10,13 +10,6 @@
   "unpkg": "./dist/index.umd.js",
   "types": "dist/index.d.ts",
   "private": false,
-  "scripts": {
-    "clean-publish": "npm run build && clean-publish && wait",
-    "build": "microbundle --compress --no-sourcemap --no-raw",
-    "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
-    "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
-    "test": "jest"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/space307/effector-react-slots.git"
@@ -28,6 +21,13 @@
       "email": "v.pasynok@space307.com"
     }
   ],
+  "scripts": {
+    "clean-publish": "npm run build && clean-publish && wait",
+    "build": "microbundle --compress --no-sourcemap --no-raw",
+    "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
+    "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
+    "test": "jest"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/space307/effector-react-slots/issues"
