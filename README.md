@@ -37,7 +37,7 @@ import { createSlotFactory } from '@space307/effector-react-slots';
 
 export const SLOTS = {
   FOO: 'foo',
-};
+} as const;
 
 export const { api, createSlot } = createSlotFactory({ slots: SLOTS });
 ```
