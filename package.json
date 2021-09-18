@@ -1,7 +1,7 @@
 {
   "name": "@space307/effector-react-slots",
   "version": "1.0.0",
-  "description": "Slots factory",
+  "description": "Effector library for slots implementation in React",
   "type": "module",
   "source": "src/index.ts",
   "exports": "./dist/index.modern.js",
