@@ -48,7 +48,6 @@ Create Slot component.
 
 ```tsx
 import React from 'react';
-import { useStoreMap } from 'effector-react';
 
 import { createSlot, SLOTS } from './slots';
 
