@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "Effector library for slots implementation in React",
   "type": "module",
-  "source": "src/index.ts",
+  "source": "src/index.tsx",
   "exports": "./dist/index.modern.js",
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "clean-publish": "npm run build && clean-publish && wait",
-    "build": "microbundle --compress --no-sourcemap --no-raw",
+    "build": "microbundle --compress --no-sourcemap --no-raw --jsx React.createElement",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
     "test": "jest"
