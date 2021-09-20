@@ -12,7 +12,7 @@ In large projects this is not convenient, because it generates "props hell" or s
 
 Using React with Effector we can achieve slot goals without the problems described above.
 
-[Try it out](https://codesandbox.io/s/effector-react-slots-example-eppjr?file=/src/App.tsx)
+[Try it out](https://replit.com/@binjospookie/effector-react-slots-example)
 
 ## Usage
 
@@ -99,7 +99,7 @@ split({
 });
 ```
 
-[Try it out](https://codesandbox.io/s/effector-react-slots-example-eppjr?file=/src/App.tsx)
+[Try it out](https://replit.com/@binjospookie/effector-react-slots-example)
 
 
 ## API
