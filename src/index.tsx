@@ -4,8 +4,8 @@ import React from 'react';
 
 import type { ReactElement } from 'react';
 
-export type Component<S> = (props: S) => ReactElement | null;
-export type SlotStore<S> = {
+type Component<S> = (props: S) => ReactElement | null;
+type SlotStore<S> = {
   readonly component: Component<S>;
 };
 
