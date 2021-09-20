@@ -52,17 +52,7 @@ import { useStoreMap } from 'effector-react';
 
 import { createSlot, SLOTS } from './slots';
 
-const { $slot } = createSlot({ id: SLOTS.FOO });
-
-export const FooSlot = () => {
-  const Component = useStoreMap({
-    store: $slot,
-    fn: ({ component }) => component,
-    keys: [],
-  });
-
-  return <Component />;
-};
+export const { Slot: FooSlot } = createSlot({ id: SLOTS.FOO });
 ```
 
 ### Step 4
@@ -127,10 +117,10 @@ const { createSlot, api } = createSlotFactory({ slots: { FOO: 'foo' } });
 
 ### createSlot
 
-Function, takes the slot id. Returns the store containing the slot.
+Function, takes the slot id. Returns Slot component.
 
 ```typescript
-const { $slot } = createSlot({ id: 'foo' });
+const { Slot } = createSlot({ id: 'foo' });
 ```
 
 ### api.set
