@@ -1,27 +1,28 @@
 import { createApi, createStore, createEvent, guard, sample } from 'effector';
+import { useStoreMap } from 'effector-react';
+import React from 'react';
 
-import type { ReactElement, PropsWithChildren } from 'react';
+import type { ReactElement } from 'react';
 
-type Component<S> = (props: PropsWithChildren<S>) => ReactElement | null;
-type Store<S> = {
+export type Component<S> = (props: S) => ReactElement | null;
+export type SlotStore<S> = {
   readonly component: Component<S>;
 };
 
-export const createSlotFactory = <Id>({ slots }: { readonly slots: Record<string, Id> }) => {
+export const createSlotFactory = <Id extends string>({ slots }: { readonly slots: Record<string, Id> }) => {
   const api = {
     remove: createEvent<{ readonly id: Id }>(),
     set: createEvent<{ readonly id: Id; readonly component: Component<any> }>(),
   };
 
-  const createSlot = <P>({ id }: { readonly id: Id }) => {
-    const defaultToStore: Store<P> = {
-      component: () => null,
-    };
-    const $slot = createStore<Store<P>>(defaultToStore);
+  const createSlot = <P,>({ id }: { readonly id: Id }) => {
+    const $slot = createStore<SlotStore<P>>({ component: () => null });
+
     const slotApi = createApi($slot, {
-      remove: (state) => ({ ...state, component: defaultToStore.component }),
+      remove: (state) => ({ ...state, component: $slot.defaultState.component }),
       set: (state, payload: Component<P>) => ({ ...state, component: payload }),
     });
+
     const isSlotEventCalling = (payload: { readonly id: Id }) => payload.id === id;
 
     guard({
@@ -39,7 +40,21 @@ export const createSlotFactory = <Id>({ slots }: { readonly slots: Record<string
       target: slotApi.set,
     });
 
+    const Slot = (props: P = {} as P) => {
+      const Component = useStoreMap({
+        store: $slot,
+        fn: ({ component }) => component,
+        keys: [],
+      });
+
+      return <Component {...props} />;
+    };
+
     return {
+      Slot,
+      /**
+       * @deprecated Looks like useless data
+       */
       $slot,
     };
   };

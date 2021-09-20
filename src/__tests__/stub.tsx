@@ -1,5 +1,4 @@
 import React from 'react';
-import { useStoreMap } from 'effector-react';
 
 import { createSlotFactory } from '../index';
 
@@ -10,27 +9,8 @@ export const SLOTS = {
 
 const { createSlot, api: slotApi } = createSlotFactory({ slots: SLOTS });
 
-const mainSlot = createSlot({ id: SLOTS.MAIN });
-const awesomeSlot = createSlot({ id: SLOTS.AWESOME });
-
-const MainSlot = () => {
-  const Component = useStoreMap({
-    store: mainSlot.$slot,
-    fn: ({ component }) => component,
-    keys: [],
-  });
-
-  return <Component />;
-};
-const AwesomeSlot = () => {
-  const Component = useStoreMap({
-    store: awesomeSlot.$slot,
-    fn: ({ component }) => component,
-    keys: [],
-  });
-
-  return <Component />;
-};
+const { Slot: MainSlot } = createSlot({ id: SLOTS.MAIN });
+const { Slot: AwesomeSlot } = createSlot({ id: SLOTS.AWESOME });
 
 export const ComponentWithSlots = () => (
   <>

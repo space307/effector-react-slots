@@ -1,6 +1,6 @@
 {
   "name": "@space307/effector-react-slots",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Effector library for slots implementation in React",
   "type": "module",
   "source": "src/index.ts",
@@ -51,7 +51,7 @@
     "@testing-library/jest-dom": "5",
     "@types/testing-library__jest-dom": "5",
     "clean-publish": "2",
-    "effector": "22.1.1",
+    "effector": "22",
     "effector-react": "22",
     "jest": "27",
     "microbundle": "0.13.3",
@@ -62,6 +62,8 @@
     "typescript": "4.4.3"
   },
   "peerDependencies": {
-    "effector": ">= 21.8.0"
+    "effector": ">= 21.8.0",
+    "effector-react": ">= 21.3.0",
+    "react": ">= 16.8"
   }
 }
