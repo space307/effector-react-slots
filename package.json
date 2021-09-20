@@ -1,15 +1,18 @@
 {
   "name": "@space307/effector-react-slots",
-  "version": "1.1.1",
+  "version": "1.1.6",
   "description": "Effector library for slots implementation in React",
   "type": "module",
   "source": "src/index.tsx",
-  "exports": "./dist/index.modern.js",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
-  "unpkg": "./dist/index.umd.js",
+  "exports": "dist/index.modern.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.module.js",
+  "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "private": false,
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/space307/effector-react-slots.git"
@@ -22,7 +25,7 @@
     }
   ],
   "scripts": {
-    "clean-publish": "npm run build && clean-publish && wait",
+    "prepublishOnly": "npm run build",
     "build": "microbundle --compress --no-sourcemap --no-raw --jsx React.createElement",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
