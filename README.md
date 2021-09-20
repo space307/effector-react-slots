@@ -46,9 +46,7 @@ export const { api, createSlot } = createSlotFactory({ slots: SLOTS });
 
 Create Slot component.
 
-```tsx
-import React from 'react';
-
+```ts
 import { createSlot, SLOTS } from './slots';
 
 export const { Slot: FooSlot } = createSlot({ id: SLOTS.FOO });
