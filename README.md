@@ -146,7 +146,7 @@ api.remove({ id: 'foo' });
 Props of component passed to slot can be defined as generic.
 
 ```typescript
-const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
+createSlot<{ readonly text: string }>({ id: 'heading' });
 ```
 
 ## Useful links
