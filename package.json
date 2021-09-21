@@ -25,9 +25,10 @@
     }
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
     "build": "microbundle --compress --no-sourcemap --no-raw --jsx React.createElement",
+    "doc:update-readme": "npx doctoc README.md",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
+    "prepublishOnly": "npm run build",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
     "test": "jest"
   },
@@ -42,18 +43,16 @@
   "keywords": [
     "effector",
     "react",
-    "slots",
-    "slot"
+    "slots"
   ],
   "devDependencies": {
     "@arkweid/lefthook": "0.7",
     "@testing-library/react": "12",
+    "@testing-library/jest-dom": "5",
     "@types/jest": "27",
     "@types/react": "17",
     "@types/react-dom": "17",
-    "@testing-library/jest-dom": "5",
-    "@types/testing-library__jest-dom": "5",
-    "clean-publish": "2",
+    "doctoc": "2",
     "effector": "22",
     "effector-react": "22",
     "jest": "27",
