@@ -107,8 +107,6 @@ split({
 Function that returns a function for creating slots and an API for manipulating them.
 
 ```typescript
-import { createSlotFactory } from '@space307/effector-react-slots';
-
 const { createSlot, api } = createSlotFactory({ slots: { FOO: 'foo' } });
 ```
 
