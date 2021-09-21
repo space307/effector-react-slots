@@ -10,7 +10,7 @@ such as Vue.js and Svelte.
 Slots arn't present in the React. With React you can achieve this goal using props or React.Context.
 In large projects this is not convenient, because it generates "props hell" or smears the logic.
 
-Using React with Effector we can achieve slot goals without the problems described above.
+Using React with Effector we can achieve slot goals avoiding the problems described above.
 
 [Try it out](https://replit.com/@binjospookie/effector-react-slots-example)
 
