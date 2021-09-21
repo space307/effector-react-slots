@@ -5,7 +5,7 @@ import { createSlotFactory } from '../index';
 export const SLOTS = {
   MAIN: 'main',
   AWESOME: 'awesome',
-};
+} as const;
 
 const { createSlot, api: slotApi } = createSlotFactory(SLOTS);
 

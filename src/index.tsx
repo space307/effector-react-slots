@@ -5,17 +5,17 @@ import React from 'react';
 import type { ReactElement } from 'react';
 
 type Component<S> = (props: S) => ReactElement | null;
-type SlotStore<S> = {
-  readonly component: Component<S>;
-  readonly isVisible: boolean;
-};
+type SlotStore<S> = Readonly<{
+  component: Component<S>;
+  isVisible: boolean;
+}>;
 
 export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) => {
   const api = {
-    hide: createEvent<{ readonly id: Id }>(),
-    remove: createEvent<{ readonly id: Id }>(),
-    set: createEvent<{ readonly id: Id; readonly component: Component<any> }>(),
-    show: createEvent<{ readonly id: Id }>(),
+    hide: createEvent<Readonly<{ id: Id }>>(),
+    remove: createEvent<Readonly<{ id: Id }>>(),
+    set: createEvent<Readonly<{ id: Id; component: Component<any> }>>(),
+    show: createEvent<Readonly<{ id: Id }>>(),
   };
 
   const createSlot = <P,>(id: Id) => {
@@ -28,7 +28,7 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
       show: (state) => (state.isVisible ? undefined : { ...state, isVisible: true }),
     });
 
-    const isSlotEventCalling = (payload: { readonly id: Id }) => payload.id === id;
+    const isSlotEventCalling = (payload: Readonly<{ id: Id }>) => payload.id === id;
 
     guard({
       clock: api.hide,
