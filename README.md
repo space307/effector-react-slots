@@ -30,7 +30,7 @@
 A slot is a place in a component where you can insert any unknown component. It's a well-known abstraction used by frameworks
 such as Vue.js and Svelte.
 
-Slots arn't present in the React. With React you can achieve this goal using props or React.Context.
+Slots aren't present in the React. With React you can achieve this goal using props or React.Context.
 In large projects this is not convenient, because it generates "props hell" or smears the logic.
 
 Using React with Effector we can achieve slot goals avoiding the problems described above.
@@ -94,7 +94,7 @@ export const ComponentWithSlot = () => (
 
 ### Step 5
 
-Render something inside slot. For example, based on data from feature toogle of your app.
+Render something inside slot. For example, based on data from feature toggle of your app.
 
 ```tsx
 import { split } from 'effector';
@@ -162,7 +162,7 @@ api.remove({ id: 'foo' });
 
 ### api.hide
 
-Alows to hide the slot data. Like `api.remove`, without deleting the slot data. Takes slot id.
+Allows to hide the slot data. Like `api.remove`, without deleting the slot data. Takes slot id.
 
 ```typescript
 api.hide({ id: 'foo' });
@@ -170,7 +170,7 @@ api.hide({ id: 'foo' });
 
 ### api.show
 
-Alows to show a hidden slot data. Takes slot id.
+Allows to show a hidden slot data. Takes slot id.
 
 ```typescript
 api.show({ id: 'foo' });
