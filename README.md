@@ -107,7 +107,11 @@ split({
 Function that returns a function for creating slots and an API for manipulating them.
 
 ```typescript
-const { createSlot, api } = createSlotFactory({ FOO: 'foo' });
+const SLOTS = {
+  FOO: 'foo'
+};
+
+const { createSlot, api } = createSlotFactory(SLOTS);
 ```
 
 ### createSlot
