@@ -35,11 +35,8 @@ test('Slots render [single]', () => {
 
 test('Slots render [multiple]', () => {
   act(() => {
-    api.set({ id: SLOTS.AWESOME, component: Button });
-  });
-
-  act(() => {
     api.set({ id: SLOTS.MAIN, component: Heading });
+    api.set({ id: SLOTS.AWESOME, component: Button });
   });
 
   expect(screen.getByRole('button')).toHaveTextContent(BUTTON_TEXT);
@@ -50,11 +47,48 @@ test('Slots render [multiple]', () => {
   });
 
   expect(screen.getByRole('button')).toHaveTextContent(BUTTON_TEXT);
+  expect(container.firstChild?.nodeName).toBe('BUTTON');
   expect(screen.queryByText(HEADING_TEXT)).not.toBeInTheDocument();
 
   act(() => {
-    api.remove({ id: SLOTS.MAIN });
+    api.remove({ id: SLOTS.AWESOME });
+  });
+
+  expect(screen.queryByText(BUTTON_TEXT)).not.toBeInTheDocument();
+});
+
+test('Slots render [hide and show]', () => {
+  act(() => {
+    api.set({ id: SLOTS.MAIN, component: Heading });
+    api.set({ id: SLOTS.AWESOME, component: Button });
+  });
+
+  expect(screen.getByRole('heading')).toHaveTextContent(HEADING_TEXT);
+  expect(screen.getByRole('button')).toHaveTextContent(BUTTON_TEXT);
+
+  act(() => {
+    api.hide({ id: SLOTS.MAIN });
   });
 
   expect(screen.queryByText(HEADING_TEXT)).not.toBeInTheDocument();
+  expect(screen.getByRole('button')).toHaveTextContent(BUTTON_TEXT);
+
+  act(() => {
+    api.hide({ id: SLOTS.AWESOME });
+  });
+
+  expect(screen.queryByText(BUTTON_TEXT)).not.toBeInTheDocument();
+
+  act(() => {
+    api.show({ id: SLOTS.MAIN });
+  });
+  expect(screen.getByRole('heading')).toHaveTextContent(HEADING_TEXT);
+  expect(screen.queryByText(BUTTON_TEXT)).not.toBeInTheDocument();
+
+  act(() => {
+    api.show({ id: SLOTS.AWESOME });
+  });
+
+  expect(screen.getByRole('heading')).toHaveTextContent(HEADING_TEXT);
+  expect(screen.getByRole('button')).toHaveTextContent(BUTTON_TEXT);
 });

@@ -134,6 +134,22 @@ Method to stop rendering component in a slot. Takes slot id.
 api.remove({ id: 'foo' });
 ```
 
+### api.hide
+
+Alows to hide the slot data. Like `api.remove`, without deleting the slot data. Takes slot id.
+
+```typescript
+api.hide({ id: 'foo' });
+```
+
+### api.show
+
+Alows to show a hidden slot data. Takes slot id.
+
+```typescript
+api.show({ id: 'foo' });
+```
+
 ## TypeScript guide
 
 ### createSlot
