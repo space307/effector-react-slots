@@ -10,9 +10,9 @@ such as Vue.js and Svelte.
 Slots arn't present in the React. With React you can achieve this goal using props or React.Context.
 In large projects this is not convenient, because it generates "props hell" or smears the logic.
 
-Using React with Effector we can achieve slot goals without the problems described above.
+Using React with Effector we can achieve slot goals avoiding the problems described above.
 
-[Try it out](https://codesandbox.io/s/effector-react-slots-example-eppjr?file=/src/App.tsx)
+[Try it out](https://replit.com/@binjospookie/effector-react-slots-example)
 
 ## Usage
 
@@ -46,10 +46,7 @@ export const { api, createSlot } = createSlotFactory({ slots: SLOTS });
 
 Create Slot component.
 
-```tsx
-import React from 'react';
-import { useStoreMap } from 'effector-react';
-
+```ts
 import { createSlot, SLOTS } from './slots';
 
 export const { Slot: FooSlot } = createSlot({ id: SLOTS.FOO });
@@ -100,7 +97,7 @@ split({
 });
 ```
 
-[Try it out](https://codesandbox.io/s/effector-react-slots-example-eppjr?file=/src/App.tsx)
+[Try it out](https://replit.com/@binjospookie/effector-react-slots-example)
 
 
 ## API
@@ -110,8 +107,6 @@ split({
 Function that returns a function for creating slots and an API for manipulating them.
 
 ```typescript
-import { createSlotFactory } from '@space307/effector-react-slots';
-
 const { createSlot, api } = createSlotFactory({ slots: { FOO: 'foo' } });
 ```
 
@@ -146,7 +141,7 @@ api.remove({ id: 'foo' });
 Props of component passed to slot can be defined as generic.
 
 ```typescript
-const slot = createSlot<{ readonly text: string }>({ id: 'heading' });
+createSlot<{ readonly text: string }>({ id: 'heading' });
 ```
 
 ## Useful links
