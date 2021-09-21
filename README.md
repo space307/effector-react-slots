@@ -87,12 +87,11 @@ split({
   match: {
     awesome: (data) => data === 'awesome',
     veryAwesome: (data) => data === 'veryAwesome',
-    hideAll: (data) => data === 'hideAll',
   },
   cases: {
     awesome: api.set.prepend(() => ({ id: SLOTS.FOO, component: MyAwesomeFeature })),
     veryAwesome: api.set.prepend(() => ({ id: SLOTS.FOO, component: VeryAwesomeFeature })),
-    hideAll: api.remove.prepend(() => ({ id: SLOTS.FOO })),
+    __: api.remove.prepend(() => ({ id: SLOTS.FOO })),
   },
 });
 ```
