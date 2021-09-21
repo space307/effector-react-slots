@@ -33,13 +33,13 @@ yarn add effector-react-slots
 Define constant with slots name and call `createSlotFactory`.
 
 ```typescript
-import { createSlotFactory } from '@space307/effector-react-slots';
+import { createSlotFactory } from 'effector-react-slots';
 
 export const SLOTS = {
   FOO: 'foo',
 } as const;
 
-export const { api, createSlot } = createSlotFactory({ slots: SLOTS });
+export const { api, createSlot } = createSlotFactory(SLOTS);
 ```
 
 ### Step 3
@@ -49,7 +49,7 @@ Create Slot component.
 ```ts
 import { createSlot, SLOTS } from './slots';
 
-export const { Slot: FooSlot } = createSlot({ id: SLOTS.FOO });
+export const { Slot: FooSlot } = createSlot(SLOTS.FOO);
 ```
 
 ### Step 4
@@ -107,7 +107,7 @@ split({
 Function that returns a function for creating slots and an API for manipulating them.
 
 ```typescript
-const { createSlot, api } = createSlotFactory({ slots: { FOO: 'foo' } });
+const { createSlot, api } = createSlotFactory({ FOO: 'foo' });
 ```
 
 ### createSlot
@@ -115,7 +115,7 @@ const { createSlot, api } = createSlotFactory({ slots: { FOO: 'foo' } });
 Function, takes the slot id. Returns Slot component.
 
 ```typescript
-const { Slot } = createSlot({ id: 'foo' });
+const { Slot } = createSlot('foo');
 ```
 
 ### api.set
@@ -157,7 +157,7 @@ api.show({ id: 'foo' });
 Props of component passed to slot can be defined as generic.
 
 ```typescript
-createSlot<{ readonly text: string }>({ id: 'heading' });
+createSlot<{ readonly text: string }>('heading');
 ```
 
 ## Useful links

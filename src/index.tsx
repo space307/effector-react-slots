@@ -10,7 +10,7 @@ type SlotStore<S> = {
   readonly isVisible: boolean;
 };
 
-export const createSlotFactory = <Id extends string>({ slots }: { readonly slots: Record<string, Id> }) => {
+export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) => {
   const api = {
     hide: createEvent<{ readonly id: Id }>(),
     remove: createEvent<{ readonly id: Id }>(),
@@ -18,7 +18,7 @@ export const createSlotFactory = <Id extends string>({ slots }: { readonly slots
     show: createEvent<{ readonly id: Id }>(),
   };
 
-  const createSlot = <P,>({ id }: { readonly id: Id }) => {
+  const createSlot = <P,>(id: Id) => {
     const $slot = createStore<SlotStore<P>>({ component: () => null, isVisible: true });
 
     const slotApi = createApi($slot, {
@@ -66,10 +66,6 @@ export const createSlotFactory = <Id extends string>({ slots }: { readonly slots
 
     return {
       Slot,
-      /**
-       * @deprecated Looks like useless data
-       */
-      $slot,
     };
   };
 

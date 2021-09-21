@@ -7,10 +7,10 @@ export const SLOTS = {
   AWESOME: 'awesome',
 };
 
-const { createSlot, api: slotApi } = createSlotFactory({ slots: SLOTS });
+const { createSlot, api: slotApi } = createSlotFactory(SLOTS);
 
-const { Slot: MainSlot } = createSlot({ id: SLOTS.MAIN });
-const { Slot: AwesomeSlot } = createSlot({ id: SLOTS.AWESOME });
+const { Slot: MainSlot } = createSlot(SLOTS.MAIN);
+const { Slot: AwesomeSlot } = createSlot(SLOTS.AWESOME);
 
 export const ComponentWithSlots = () => (
   <>

@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0
+
+- Breaking: stop return `$slot` from `createSlot`
+- Breaking: change `createSlotFactory` signature
+- Breaking: change `createSlot` signature
+
 ## 1.2.0
 
 - Feat: add `show` and `hide` to `api`
