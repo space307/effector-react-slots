@@ -19,6 +19,8 @@
   - [api.remove](#apiremove)
   - [api.hide](#apihide)
   - [api.show](#apishow)
+- [Advanced](#advanced)
+  - [Fallback content](#fallback-content)
 - [TypeScript guide](#typescript-guide)
   - [createSlot](#createslot-1)
 - [Useful links](#useful-links)
