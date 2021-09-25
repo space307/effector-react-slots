@@ -19,6 +19,8 @@
   - [api.remove](#apiremove)
   - [api.hide](#apihide)
   - [api.show](#apishow)
+- [Advanced](#advanced)
+  - [Fallback content](#fallback-content)
 - [TypeScript guide](#typescript-guide)
   - [createSlot](#createslot-1)
 - [Useful links](#useful-links)
@@ -121,7 +123,6 @@ split({
 
 [Try it out](https://replit.com/@binjospookie/effector-react-slots-example)
 
-
 ## API
 
 ### createSlotFactory
@@ -174,6 +175,34 @@ Allows to show a hidden slot data. Takes slot id.
 
 ```typescript
 api.show({ id: 'foo' });
+```
+
+## Advanced
+
+### Fallback content
+
+> Since v2.1.0
+
+Slot can contain fallback content that is rendered if no component are passed.
+
+```tsx
+import { createSlotFactory } from 'effector-react-slots';
+
+const SLOTS = {
+  FOO: 'foo',
+} as const;
+
+const { api, createSlot } = createSlotFactory(SLOTS);
+const { Slot: FooSlot } = createSlot(SLOTS.FOO);
+
+const MyAwesomeFeature = () => <p>Look at my horse</p>;
+const ComponentWithSlot = () => <FooSlot>Fallback text</FooSlot>;
+
+render(ComponentWithSlot); // "Fallback text"
+api.set({ id: SLOTS.FOO, MyAwesomeFeature });
+render(ComponentWithSlot); // "Look at my horse"
+api.remove({ id: SLOTS.FOO });
+render(ComponentWithSlot); // "Fallback text"
 ```
 
 ## TypeScript guide
