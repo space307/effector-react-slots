@@ -2,7 +2,7 @@ import { createApi, createStore, createEvent, guard, sample } from 'effector';
 import { useStoreMap } from 'effector-react';
 import React from 'react';
 
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 type Component<S> = (props: S) => ReactElement | null;
 type SlotStore<S> = Readonly<{
@@ -19,11 +19,17 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
   };
 
   const createSlot = <P,>(id: Id) => {
-    const $slot = createStore<SlotStore<P>>({ component: () => null, isVisible: true });
+    const $slot = createStore<SlotStore<P>>({
+      component: () => null,
+      isVisible: true,
+    });
 
     const slotApi = createApi($slot, {
       hide: (state) => (!state.isVisible ? undefined : { ...state, isVisible: false }),
-      remove: (state) => ({ ...state, component: $slot.defaultState.component }),
+      remove: (state) => ({
+        ...state,
+        component: $slot.defaultState.component,
+      }),
       set: (state, payload: Component<P>) => ({ ...state, component: payload }),
       show: (state) => (state.isVisible ? undefined : { ...state, isVisible: true }),
     });
@@ -57,10 +63,16 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
       target: slotApi.show,
     });
 
-    const Slot = (props: P = {} as P) =>
+    const Slot = (props: P & { readonly children?: ReactNode } = {} as P) =>
       useStoreMap({
         store: $slot,
-        fn: ({ component: Component, isVisible }) => (isVisible ? <Component {...props} /> : null),
+        fn: ({ component: Component, isVisible }) => {
+          if (!isVisible) {
+            return null;
+          }
+
+          return $slot.defaultState.component === Component ? <>{props.children}</> : <Component {...props} />;
+        },
         keys: [],
       });
 
