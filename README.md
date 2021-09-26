@@ -2,6 +2,8 @@
 
 ☄️ Effector library for slots implementation in React.
 
+![Made with love in ~/.space307](https://madewithlove.now.sh/ru?heart=true&colorA=%23000000&colorB=%2304b2b9&text=%7E%2F.space307)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
