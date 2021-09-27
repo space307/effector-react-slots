@@ -188,6 +188,7 @@ api.show({ id: 'foo' });
 Slot can contain fallback content that is rendered if no component are passed.
 
 ```tsx
+import { render } from 'render';
 import { createSlotFactory } from 'effector-react-slots';
 
 const SLOTS = {
@@ -201,7 +202,7 @@ const MyAwesomeFeature = () => <p>Look at my horse</p>;
 const ComponentWithSlot = () => <FooSlot>Fallback text</FooSlot>;
 
 render(ComponentWithSlot); // "Fallback text"
-api.set({ id: SLOTS.FOO, MyAwesomeFeature });
+api.set({ id: SLOTS.FOO, component: MyAwesomeFeature });
 render(ComponentWithSlot); // "Look at my horse"
 api.remove({ id: SLOTS.FOO });
 render(ComponentWithSlot); // "Fallback text"
