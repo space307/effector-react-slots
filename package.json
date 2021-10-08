@@ -55,7 +55,7 @@
     "effector": "22",
     "effector-react": "22",
     "jest": "27",
-    "microbundle": "0.13.3",
+    "microbundle": "0.14.0",
     "prettier": "2",
     "react": "17",
     "react-dom": "17",
