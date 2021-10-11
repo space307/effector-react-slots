@@ -215,7 +215,7 @@ render(ComponentWithSlot); // "Fallback text"
 Props of component passed to slot can be defined as generic.
 
 ```typescript
-createSlot<{ readonly text: string }>('heading');
+createSlot<{ readonly text: string }>(string);
 ```
 
 ## Useful links
