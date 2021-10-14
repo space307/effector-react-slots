@@ -55,12 +55,12 @@
     "effector": "22",
     "effector-react": "22",
     "jest": "27",
-    "microbundle": "0.14.0",
+    "microbundle": "0.14.1",
     "prettier": "2",
     "react": "17",
     "react-dom": "17",
     "ts-jest": "27",
-    "typescript": "4.4.3"
+    "typescript": "4.4.4"
   },
   "peerDependencies": {
     "effector": ">= 21.8.0",
