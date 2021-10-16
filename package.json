@@ -29,7 +29,7 @@
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prepublishOnly": "npm run build",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
-    "test": "jest"
+    "test": "jest --maxWorkers=50% --no-cache --no-watchman"
   },
   "license": "MIT",
   "bugs": {
