@@ -4,32 +4,65 @@ import React from 'react';
 
 import type { ReactElement, ReactNode } from 'react';
 
+type Logger = (_: string) => unknown;
+type GetLogText<S, P> = (_: { eventName: S; slotId: P }) => string;
 type Component<S> = (props: S) => ReactElement | null;
 type SlotStore<S> = Readonly<{
   component: Component<S>;
   isVisible: boolean;
-  shouldLog: boolean;
 }>;
-type LogFx<S> = (
-  eventName: S,
-  config?: {
-    readonly logger?: (_: string) => unknown;
-  },
-) => void;
 
 export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) => {
+  // $ of loggable slots ID
   const api = {
     hide: createEvent<Readonly<{ id: Id }>>(),
     remove: createEvent<Readonly<{ id: Id }>>(),
     set: createEvent<Readonly<{ id: Id; component: Component<any> }>>(),
     show: createEvent<Readonly<{ id: Id }>>(),
+    attachLogger: createEvent(),
   };
+  const getLogText: GetLogText<keyof typeof api, Id> = ({ eventName, slotId }) => {
+    if (eventName === 'hide') {
+      return `${slotId} slot content was hidden`;
+    }
+
+    if (eventName === 'remove') {
+      return `${slotId} slot content was removed`;
+    }
+
+    return eventName === 'set' ? `${slotId} slot content was removed` : `${slotId} slot content was shown`;
+  };
+  type GetLogTextRequiredParameter = Parameters<typeof getLogText>[0];
+
+  const logFx = createEffect<Logger>(() => console.info);
+
+  guard({
+    clock: [
+      api.hide.map(({ id }) => ({
+        slotId: id,
+        eventName: 'hide',
+      })),
+      api.remove.map(({ id }) => ({
+        slotId: id,
+        eventName: 'remove',
+      })),
+      api.set.map(({ id }) => ({
+        slotId: id,
+        eventName: 'set',
+      })),
+      api.show.map(({ id }) => ({
+        slotId: id,
+        eventName: 'show',
+      })),
+    ],
+    filter: (data): data is GetLogTextRequiredParameter => data !== null,
+    target: logFx.prepend<GetLogTextRequiredParameter>(getLogText),
+  });
 
   const createSlot = <P,>(id: Id) => {
     const $slot = createStore<SlotStore<P>>({
       component: () => null,
       isVisible: true,
-      shouldLog: false,
     });
 
     const slotApi = createApi($slot, {
@@ -40,28 +73,6 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
       }),
       set: (state, payload: Component<P>) => ({ ...state, component: payload }),
       show: (state) => (state.isVisible ? undefined : { ...state, isVisible: true }),
-      attachLogger: (state) => (state.shouldLog === true ? undefined : { ...state, shouldLog: true }),
-    });
-
-    type SlotPublicApi = Exclude<keyof typeof slotApi, 'attachLogger'>;
-
-    const logFx = createEffect<LogFx<SlotPublicApi>>((eventName, config) => {
-      const logger = config?.logger || console.info;
-
-      switch (eventName) {
-        case 'hide':
-          logger(`${id} slot content was hidden`);
-          break;
-        case 'remove':
-          logger(`${id} slot content was removed`);
-          break;
-        case 'set':
-          logger(`${id} slot content was set`);
-          break;
-        case 'show':
-          logger(`${id} slot content was shown`);
-          break;
-      }
     });
 
     const isSlotEventCalling = (payload: Readonly<{ id: Id }>) => payload.id === id;
@@ -91,21 +102,6 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
       clock: api.show,
       filter: isSlotEventCalling,
       target: slotApi.show,
-    });
-
-    guard({
-      clock: sample({
-        clock: [
-          slotApi.hide.map<SlotPublicApi>(() => 'hide'),
-          slotApi.remove.map<SlotPublicApi>(() => 'remove'),
-          slotApi.set.map<SlotPublicApi>(() => 'set'),
-          slotApi.show.map<SlotPublicApi>(() => 'show'),
-        ],
-        source: $slot,
-        fn: ({ shouldLog }, eventName) => (shouldLog ? eventName : null),
-      }),
-      filter: (eventName): eventName is SlotPublicApi => eventName !== null,
-      target: logFx,
     });
 
     const Slot = (props: P & { readonly children?: ReactNode } = {} as P) =>
