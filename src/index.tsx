@@ -87,7 +87,7 @@ export const createSlotFactory = <Id extends string>(
       source: $shouldLog,
       fn: (shouldLog, logParameters): LogParameters | null => (shouldLog ? logParameters : null),
     }),
-    filter: (logParameters): logParameters is LogParameters => logParameters !== null,
+    filter: (data): data is LogParameters => data !== null,
     target: logFx.prepend<LogParameters>(getLogText),
   });
 
