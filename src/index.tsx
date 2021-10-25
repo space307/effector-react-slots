@@ -4,59 +4,91 @@ import React from 'react';
 
 import type { ReactElement, ReactNode } from 'react';
 
-type Logger = (_: string) => unknown;
-type GetLogText<S, P> = (_: { eventName: S; slotId: P }) => string;
+const ACTIONS = {
+  HIDE: 'hide',
+  REMOVE: 'remove',
+  SET: 'set',
+  SHOW: 'show',
+  ATTACH_LOGGER: 'attachLogger',
+} as const;
+
+type Logger<S, P> = (
+  _: string,
+  meta: {
+    readonly action: P;
+    readonly slotId: S;
+  },
+) => unknown;
+type GetLogText<S, P> = (_: { action: S; slotId: P }) => string;
 type Component<S> = (props: S) => ReactElement | null;
 type SlotStore<S> = Readonly<{
   component: Component<S>;
   isVisible: boolean;
 }>;
-
-export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) => {
-  // $ of loggable slots ID
-  const api = {
-    hide: createEvent<Readonly<{ id: Id }>>(),
-    remove: createEvent<Readonly<{ id: Id }>>(),
-    set: createEvent<Readonly<{ id: Id; component: Component<any> }>>(),
-    show: createEvent<Readonly<{ id: Id }>>(),
-    attachLogger: createEvent(),
+type Config<S, P> = {
+  readonly logger?: {
+    readonly fn: Logger<S, P>;
   };
-  const getLogText: GetLogText<keyof typeof api, Id> = ({ eventName, slotId }) => {
-    if (eventName === 'hide') {
+};
+
+// todo: add an ability to setup list of watchable slots
+export const createSlotFactory = <Id extends string>(
+  slots: Record<string, Id>,
+  config?: Config<Id, Exclude<typeof ACTIONS[keyof typeof ACTIONS], 'attachLogger'>>,
+) => {
+  const attachLogger = createEvent();
+  const $shouldLog = createStore<boolean>(false).on(attachLogger, () => true);
+
+  const api = {
+    [ACTIONS.HIDE]: createEvent<Readonly<{ id: Id }>>(),
+    [ACTIONS.REMOVE]: createEvent<Readonly<{ id: Id }>>(),
+    [ACTIONS.SET]: createEvent<Readonly<{ id: Id; component: Component<any> }>>(),
+    [ACTIONS.SHOW]: createEvent<Readonly<{ id: Id }>>(),
+    [ACTIONS.ATTACH_LOGGER]: attachLogger,
+  };
+  const getLogText: GetLogText<keyof typeof api, Id> = ({ action, slotId }) => {
+    if (action === ACTIONS.HIDE) {
       return `${slotId} slot content was hidden`;
     }
 
-    if (eventName === 'remove') {
+    if (action === ACTIONS.REMOVE) {
       return `${slotId} slot content was removed`;
     }
 
-    return eventName === 'set' ? `${slotId} slot content was removed` : `${slotId} slot content was shown`;
+    return action === ACTIONS.SET ? `${slotId} slot content was removed` : `${slotId} slot content was shown`;
   };
-  type GetLogTextRequiredParameter = Parameters<typeof getLogText>[0];
 
-  const logFx = createEffect<Logger>(() => console.info);
+  type LogParameters = Parameters<typeof getLogText>[0];
+
+  const logFx = createEffect<NonNullable<NonNullable<typeof config>['logger']>['fn']>(
+    config?.logger?.fn || console.info,
+  );
 
   guard({
-    clock: [
-      api.hide.map(({ id }) => ({
-        slotId: id,
-        eventName: 'hide',
-      })),
-      api.remove.map(({ id }) => ({
-        slotId: id,
-        eventName: 'remove',
-      })),
-      api.set.map(({ id }) => ({
-        slotId: id,
-        eventName: 'set',
-      })),
-      api.show.map(({ id }) => ({
-        slotId: id,
-        eventName: 'show',
-      })),
-    ],
-    filter: (data): data is GetLogTextRequiredParameter => data !== null,
-    target: logFx.prepend<GetLogTextRequiredParameter>(getLogText),
+    clock: sample({
+      clock: [
+        api.hide.map(({ id }) => ({
+          slotId: id,
+          action: ACTIONS.HIDE,
+        })),
+        api.remove.map(({ id }) => ({
+          slotId: id,
+          action: ACTIONS.REMOVE,
+        })),
+        api.set.map(({ id }) => ({
+          slotId: id,
+          action: ACTIONS.SET,
+        })),
+        api.show.map(({ id }) => ({
+          slotId: id,
+          action: ACTIONS.SHOW,
+        })),
+      ],
+      source: $shouldLog,
+      fn: (shouldLog, logParameters): LogParameters | null => (shouldLog ? logParameters : null),
+    }),
+    filter: (logParameters): logParameters is LogParameters => logParameters !== null,
+    target: logFx.prepend<LogParameters>(getLogText),
   });
 
   const createSlot = <P,>(id: Id) => {
@@ -78,20 +110,20 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
     const isSlotEventCalling = (payload: Readonly<{ id: Id }>) => payload.id === id;
 
     guard({
-      clock: api.hide,
+      clock: api[ACTIONS.HIDE],
       filter: isSlotEventCalling,
       target: slotApi.hide,
     });
 
     guard({
-      clock: api.remove,
+      clock: api[ACTIONS.REMOVE],
       filter: isSlotEventCalling,
       target: slotApi.remove,
     });
 
     sample({
       clock: guard({
-        clock: api.set,
+        clock: api[ACTIONS.SET],
         filter: isSlotEventCalling,
       }),
       fn: ({ component }) => component,
@@ -99,7 +131,7 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
     });
 
     guard({
-      clock: api.show,
+      clock: api[ACTIONS.SHOW],
       filter: isSlotEventCalling,
       target: slotApi.show,
     });
