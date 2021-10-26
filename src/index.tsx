@@ -13,11 +13,13 @@ const ACTIONS = {
 } as const;
 
 type Logger<S, P> = (
-  _: string,
-  meta: {
-    readonly action: P;
-    readonly slotId: S;
-  },
+  _: Readonly<{
+    message: string;
+    meta: {
+      action: P;
+      slotId: S;
+    };
+  }>,
 ) => unknown;
 type GetLogText<S, P> = (_: { action: S; slotId: P }) => string;
 type Component<S> = (props: S) => ReactElement | null;
@@ -46,7 +48,7 @@ export const createSlotFactory = <Id extends string>(
     [ACTIONS.SHOW]: createEvent<Readonly<{ id: Id }>>(),
     [ACTIONS.ATTACH_LOGGER]: attachLogger,
   };
-  const getLogText: GetLogText<keyof typeof api, Id> = ({ action, slotId }) => {
+  const getLogText: GetLogText<Exclude<keyof typeof api, 'attachLogger'>, Id> = ({ action, slotId }) => {
     if (action === ACTIONS.HIDE) {
       return `${slotId} slot content was hidden`;
     }
@@ -60,8 +62,8 @@ export const createSlotFactory = <Id extends string>(
 
   type LogParameters = Parameters<typeof getLogText>[0];
 
-  const logFx = createEffect<NonNullable<NonNullable<typeof config>['logger']>['fn']>(
-    config?.logger?.fn || console.info,
+  const logFx = createEffect<NonNullable<NonNullable<typeof config>['logger']>['fn']>(({ message }) =>
+    console.info(message),
   );
 
   guard({
@@ -88,8 +90,7 @@ export const createSlotFactory = <Id extends string>(
       fn: (shouldLog, logParameters): LogParameters | null => (shouldLog ? logParameters : null),
     }),
     filter: (data): data is LogParameters => data !== null,
-    // fixme: support meta passing
-    target: logFx.prepend<LogParameters>(getLogText),
+    target: logFx.prepend<LogParameters>((data) => ({ message: getLogText(data), meta: data })),
   });
 
   const createSlot = <P,>(id: Id) => {
