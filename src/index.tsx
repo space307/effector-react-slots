@@ -15,27 +15,32 @@ const ACTIONS = {
   ATTACH_LOGGER: 'attachLogger',
 } as const;
 
-type Logger<S, P> = (
+type SlotName = string;
+type Logger<S, P, T> = (
   _: Readonly<{
     message: string;
     meta: {
       action: P;
       slotId: S;
+      slotName: T;
     };
   }>,
 ) => unknown;
-type GetLogText<S, P> = (_: { action: S; slotId: P }) => string;
+type GetLogText<S, P, T> = (_: { action: S; slotId: P; slotName: T }) => string;
 type Component<S> = (props: S) => ReactElement | null;
 type SlotStore<S> = Readonly<{
   component: Component<S>;
   isVisible: boolean;
 }>;
 
-export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) => {
+export const createSlotFactory = <Id extends string>(slots: Record<SlotName, Id>) => {
+  const slotNames = new Map(Object.entries(slots).map(([key, value]) => [value, key]));
+
   const attachLogger = createEvent<Readonly<{
-    fn?: Logger<Id, Exclude<typeof ACTIONS[keyof typeof ACTIONS], 'attachLogger'>>;
+    fn?: Logger<Id, Exclude<typeof ACTIONS[keyof typeof ACTIONS], 'attachLogger'>, SlotName>;
     watchList?: Id[];
   }> | void>();
+
   const $logger = createStore<
     Readonly<{
       shouldLog: boolean;
@@ -55,19 +60,12 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
     [ACTIONS.SHOW]: createEvent<Readonly<{ id: Id }>>(),
     [ACTIONS.ATTACH_LOGGER]: attachLogger,
   };
-  const getLogText: GetLogText<Exclude<keyof typeof api, 'attachLogger'>, Id> = ({ action, slotId }) => {
-    if (action === ACTIONS.HIDE) {
-      return `${LOG_TITLE} ${slotId} slot content was hidden`;
-    }
 
-    if (action === ACTIONS.REMOVE) {
-      return `${LOG_TITLE} ${slotId} slot content was removed`;
-    }
-
-    return action === ACTIONS.SET
-      ? `${LOG_TITLE} ${slotId} slot content was set`
-      : `${LOG_TITLE} ${slotId} slot content was shown`;
-  };
+  const getLogText: GetLogText<Exclude<keyof typeof api, 'attachLogger'>, Id, SlotName> = ({
+    action,
+    slotId,
+    slotName,
+  }) => `${LOG_TITLE} ${slotName} -> ${action} // ${slotId}`;
 
   type LogParameters = Parameters<typeof getLogText>[0];
 
@@ -87,20 +85,24 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
     clock: sample({
       clock: [
         api.hide.map(({ id }) => ({
-          slotId: id,
           action: ACTIONS.HIDE,
+          slotId: id,
+          slotName: slotNames.get(id) as SlotName,
         })),
         api.remove.map(({ id }) => ({
-          slotId: id,
           action: ACTIONS.REMOVE,
+          slotId: id,
+          slotName: slotNames.get(id) as SlotName,
         })),
         api.set.map(({ id }) => ({
-          slotId: id,
           action: ACTIONS.SET,
+          slotId: id,
+          slotName: slotNames.get(id) as SlotName,
         })),
         api.show.map(({ id }) => ({
-          slotId: id,
           action: ACTIONS.SHOW,
+          slotId: id,
+          slotName: slotNames.get(id) as SlotName,
         })),
       ],
       source: $logger,

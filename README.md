@@ -214,7 +214,11 @@ Accepts object:
 
 ```typescript
 {
-  meta: { action: 'set' | 'remove' | 'hide' | 'show', slotId: SlotId };
+  meta: {
+    action: 'set' | 'remove' | 'hide' | 'show',
+    slotId: SlotId,
+    slotName: string;
+  };
   message: string;
 }
 ```

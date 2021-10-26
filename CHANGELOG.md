@@ -2,6 +2,11 @@
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.3.0
+
+- Style: simplified logger output
+- Feat: added `slotName` to `meta` of custom logger
+
 ## 2.2.0
 
 - Feat: add `attachLogger`.
