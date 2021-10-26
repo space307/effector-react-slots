@@ -28,12 +28,22 @@ type SlotStore<S> = Readonly<{
   isVisible: boolean;
 }>;
 
-// todo: add an ability to setup list of watchable slots
 export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) => {
   const attachLogger = createEvent<Readonly<{
-    fn: Logger<Id, Exclude<typeof ACTIONS[keyof typeof ACTIONS], 'attachLogger'>>;
+    fn?: Logger<Id, Exclude<typeof ACTIONS[keyof typeof ACTIONS], 'attachLogger'>>;
+    watchList?: Id[];
   }> | void>();
-  const $shouldLog = createStore<boolean>(false).on(attachLogger, () => true);
+  const $shouldLog = createStore<
+    Readonly<{
+      shouldLog: boolean;
+      watchList: Id[];
+    }>
+  >({
+    shouldLog: false,
+    watchList: Object.values(slots),
+  }).on(attachLogger, (state, payload) =>
+    state.shouldLog ? undefined : { shouldLog: true, watchList: payload?.watchList || Object.values(slots) },
+  );
 
   const api = {
     [ACTIONS.HIDE]: createEvent<Readonly<{ id: Id }>>(),
@@ -56,7 +66,7 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
 
   type LogParameters = Parameters<typeof getLogText>[0];
 
-  const logFx = createEffect<Exclude<EventPayload<typeof attachLogger>, void>['fn']>(({ message }) =>
+  const logFx = createEffect<NonNullable<Exclude<EventPayload<typeof attachLogger>, void>['fn']>>(({ message }) =>
     console.info(message),
   );
 
@@ -89,7 +99,8 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
         })),
       ],
       source: $shouldLog,
-      fn: (shouldLog, logParameters): LogParameters | null => (shouldLog ? logParameters : null),
+      fn: ({ shouldLog, watchList }, logParameters): LogParameters | null =>
+        shouldLog && watchList.includes(logParameters.slotId) ? logParameters : null,
     }),
     filter: (data): data is LogParameters => data !== null,
     target: logFx.prepend<LogParameters>((data) => ({ message: getLogText(data), meta: data })),
