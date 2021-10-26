@@ -1,7 +1,8 @@
-import { createApi, createStore, createEvent, guard, sample, createEffect, EventPayload } from 'effector';
+import { createApi, createStore, createEvent, guard, sample, createEffect } from 'effector';
 import { useStoreMap } from 'effector-react';
 import React from 'react';
 
+import type { EventPayload } from 'effector';
 import type { ReactElement, ReactNode } from 'react';
 
 const ACTIONS = {
