@@ -1,6 +1,6 @@
 {
   "name": "effector-react-slots",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Effector library for slots implementation in React",
   "type": "module",
   "source": "src/index.tsx",

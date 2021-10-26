@@ -21,6 +21,10 @@
   - [api.remove](#apiremove)
   - [api.hide](#apihide)
   - [api.show](#apishow)
+  - [api.attachLogger](#apiattachlogger)
+    - [Arguments](#arguments)
+      - [`fn`](#fn)
+      - [`watchList`](#watchlist)
 - [Advanced](#advanced)
   - [Fallback content](#fallback-content)
 - [TypeScript guide](#typescript-guide)
@@ -177,6 +181,54 @@ Allows to show a hidden slot data. Takes slot id.
 
 ```typescript
 api.show({ id: 'foo' });
+```
+
+### api.attachLogger
+
+Allows to log actions that take place with slots.
+
+```typescript
+api.attachLogger();
+
+slotApi.attachLogger({
+  fn: ({ meta: { slotId } }) => console.info(slotId),
+});
+
+slotApi.attachLogger({
+  watchList: [SLOTS.FOO, SLOTS.BAR],
+});
+
+slotApi.attachLogger({
+  watchList: [SLOTS.FOO, SLOTS.BAR],
+  fn: ({ meta: { slotId } }) => console.info(slotId),
+});
+```
+
+#### Arguments
+
+##### `fn`
+Optional. Function which could be used for logging.
+Accepts object:
+
+```typescript
+{
+  meta: { action: 'set' | 'remove' | 'hide' | 'show', slotId: SlotId };
+  message: string;
+}
+```
+
+##### `watchList`
+
+```typescript
+type: SlotId[]
+```
+
+Optional. Allows to specify which slots should be logged.
+
+```typescript
+slotApi.attachLogger({
+  watchList: [SLOTS.FOO, SLOTS.BAR],
+});
 ```
 
 ## Advanced
