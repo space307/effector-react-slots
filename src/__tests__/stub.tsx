@@ -13,18 +13,6 @@ export const NOT_FALLBACK_TEXT = 'Not fallback text';
 
 const { createSlot, api: slotApi } = createSlotFactory(SLOTS);
 
-// slotApi.attachLogger();
-// slotApi.attachLogger({
-//   watchList: [SLOTS.MAIN, SLOTS.WITH_FALLBACK],
-//   fn: ({ meta: { slotId } }) => console.info(slotId),
-// });
-// slotApi.attachLogger({
-//   watchList: [SLOTS.MAIN, SLOTS.WITH_FALLBACK],
-// });
-// slotApi.attachLogger({
-//   fn: ({ meta: { slotId } }) => console.info(slotId),
-// });
-
 const { Slot: MainSlot } = createSlot(SLOTS.MAIN);
 const { Slot: AwesomeSlot } = createSlot(SLOTS.AWESOME);
 const { Slot: SlotWithFallback } = createSlot<{ readonly text: string }>(SLOTS.WITH_FALLBACK);

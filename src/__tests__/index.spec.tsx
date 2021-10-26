@@ -17,7 +17,7 @@ import {
   NOT_FALLBACK_TEXT,
 } from './stub';
 
-describe("Test 'em all", () => {
+describe('Test rendering', () => {
   test('Slots render [single]', () => {
     let container = render(<ComponentWithSlots />).container;
 

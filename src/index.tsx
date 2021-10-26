@@ -61,7 +61,7 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
       return `${slotId} slot content was removed`;
     }
 
-    return action === ACTIONS.SET ? `${slotId} slot content was removed` : `${slotId} slot content was shown`;
+    return action === ACTIONS.SET ? `${slotId} slot content was set` : `${slotId} slot content was shown`;
   };
 
   type LogParameters = Parameters<typeof getLogText>[0];
