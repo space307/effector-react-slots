@@ -33,7 +33,7 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
     fn?: Logger<Id, Exclude<typeof ACTIONS[keyof typeof ACTIONS], 'attachLogger'>>;
     watchList?: Id[];
   }> | void>();
-  const $shouldLog = createStore<
+  const $logger = createStore<
     Readonly<{
       shouldLog: boolean;
       watchList: Id[];
@@ -98,7 +98,7 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
           action: ACTIONS.SHOW,
         })),
       ],
-      source: $shouldLog,
+      source: $logger,
       fn: ({ shouldLog, watchList }, logParameters): LogParameters | null =>
         shouldLog && watchList.includes(logParameters.slotId) ? logParameters : null,
     }),
