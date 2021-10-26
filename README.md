@@ -185,6 +185,8 @@ api.show({ id: 'foo' });
 
 ### api.attachLogger
 
+> Since v2.2.0
+
 Allows to log actions that take place with slots.
 
 ```typescript
