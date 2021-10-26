@@ -13,7 +13,11 @@ export const NOT_FALLBACK_TEXT = 'Not fallback text';
 
 const { createSlot, api: slotApi } = createSlotFactory(SLOTS);
 
-slotApi.attachLogger();
+// slotApi.attachLogger();
+
+// slotApi.attachLogger({
+//   fn: ({ meta: { action } }) => console.info(`action: ${action}`),
+// });
 
 const { Slot: MainSlot } = createSlot(SLOTS.MAIN);
 const { Slot: AwesomeSlot } = createSlot(SLOTS.AWESOME);

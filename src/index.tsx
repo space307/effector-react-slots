@@ -1,4 +1,4 @@
-import { createApi, createStore, createEvent, guard, sample, createEffect } from 'effector';
+import { createApi, createStore, createEvent, guard, sample, createEffect, EventPayload } from 'effector';
 import { useStoreMap } from 'effector-react';
 import React from 'react';
 
@@ -27,18 +27,12 @@ type SlotStore<S> = Readonly<{
   component: Component<S>;
   isVisible: boolean;
 }>;
-type Config<S, P> = {
-  readonly logger?: {
-    readonly fn: Logger<S, P>;
-  };
-};
 
 // todo: add an ability to setup list of watchable slots
-export const createSlotFactory = <Id extends string>(
-  slots: Record<string, Id>,
-  config?: Config<Id, Exclude<typeof ACTIONS[keyof typeof ACTIONS], 'attachLogger'>>,
-) => {
-  const attachLogger = createEvent();
+export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) => {
+  const attachLogger = createEvent<Readonly<{
+    fn: Logger<Id, Exclude<typeof ACTIONS[keyof typeof ACTIONS], 'attachLogger'>>;
+  }> | void>();
   const $shouldLog = createStore<boolean>(false).on(attachLogger, () => true);
 
   const api = {
@@ -62,9 +56,17 @@ export const createSlotFactory = <Id extends string>(
 
   type LogParameters = Parameters<typeof getLogText>[0];
 
-  const logFx = createEffect<NonNullable<NonNullable<typeof config>['logger']>['fn']>(({ message }) =>
+  const logFx = createEffect<Exclude<EventPayload<typeof attachLogger>, void>['fn']>(({ message }) =>
     console.info(message),
   );
+
+  const unsub = attachLogger.watch((payload) => {
+    if (payload?.fn) {
+      logFx.use(payload.fn);
+    }
+
+    unsub();
+  });
 
   guard({
     clock: sample({
