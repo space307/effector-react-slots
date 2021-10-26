@@ -1,18 +1,6 @@
 import { SLOTS } from './stub';
 
-import { createSlotFactory } from '../index';
-
-// slotApi.attachLogger();
-// slotApi.attachLogger({
-//   watchList: [SLOTS.MAIN, SLOTS.WITH_FALLBACK],
-//   fn: ({ meta: { slotId } }) => console.info(slotId),
-// });
-// slotApi.attachLogger({
-//   watchList: [SLOTS.MAIN, SLOTS.WITH_FALLBACK],
-// });
-// slotApi.attachLogger({
-//   fn: ({ meta: { slotId } }) => console.info(slotId),
-// });
+import { createSlotFactory, LOG_TITLE } from '../index';
 
 describe('AttachLogger', () => {
   test('Basic', () => {
@@ -28,31 +16,31 @@ describe('AttachLogger', () => {
 
     api.set({ id: SLOTS.AWESOME, component: () => null });
     expect(logger).toBeCalledWith({
-      message: `${SLOTS.AWESOME} slot content was set`,
-      meta: { action: 'set', slotId: 'awesome' },
+      message: `${LOG_TITLE} ${SLOTS.AWESOME} slot content was set`,
+      meta: { action: 'set', slotId: SLOTS.AWESOME },
     });
 
     api.hide({ id: SLOTS.AWESOME });
     expect(logger).toBeCalledWith({
-      message: `${SLOTS.AWESOME} slot content was hidden`,
+      message: `${LOG_TITLE} ${SLOTS.AWESOME} slot content was hidden`,
       meta: { action: 'hide', slotId: SLOTS.AWESOME },
     });
 
     api.show({ id: SLOTS.AWESOME });
     expect(logger).toBeCalledWith({
-      message: `${SLOTS.AWESOME} slot content was shown`,
+      message: `${LOG_TITLE} ${SLOTS.AWESOME} slot content was shown`,
       meta: { action: 'show', slotId: SLOTS.AWESOME },
     });
 
     api.remove({ id: SLOTS.AWESOME });
     expect(logger).toBeCalledWith({
-      message: `${SLOTS.AWESOME} slot content was removed`,
+      message: `${LOG_TITLE} ${SLOTS.AWESOME} slot content was removed`,
       meta: { action: 'remove', slotId: SLOTS.AWESOME },
     });
 
     api.hide({ id: SLOTS.MAIN });
     expect(logger).toBeCalledWith({
-      message: `${SLOTS.MAIN} slot content was hidden`,
+      message: `${LOG_TITLE} ${SLOTS.MAIN} slot content was hidden`,
       meta: { action: 'hide', slotId: SLOTS.MAIN },
     });
 

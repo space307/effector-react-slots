@@ -5,6 +5,8 @@ import React from 'react';
 import type { EventPayload } from 'effector';
 import type { ReactElement, ReactNode } from 'react';
 
+export const LOG_TITLE = '[effector-react-slots]';
+
 const ACTIONS = {
   HIDE: 'hide',
   REMOVE: 'remove',
@@ -55,14 +57,16 @@ export const createSlotFactory = <Id extends string>(slots: Record<string, Id>) 
   };
   const getLogText: GetLogText<Exclude<keyof typeof api, 'attachLogger'>, Id> = ({ action, slotId }) => {
     if (action === ACTIONS.HIDE) {
-      return `${slotId} slot content was hidden`;
+      return `${LOG_TITLE} ${slotId} slot content was hidden`;
     }
 
     if (action === ACTIONS.REMOVE) {
-      return `${slotId} slot content was removed`;
+      return `${LOG_TITLE} ${slotId} slot content was removed`;
     }
 
-    return action === ACTIONS.SET ? `${slotId} slot content was set` : `${slotId} slot content was shown`;
+    return action === ACTIONS.SET
+      ? `${LOG_TITLE} ${slotId} slot content was set`
+      : `${LOG_TITLE} ${slotId} slot content was shown`;
   };
 
   type LogParameters = Parameters<typeof getLogText>[0];
