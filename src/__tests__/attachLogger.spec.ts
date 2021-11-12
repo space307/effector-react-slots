@@ -1,6 +1,7 @@
 import { SLOTS } from './stub';
 
-import { createSlotFactory, LOG_TITLE } from '../index';
+import { createSlotFactory } from '../index';
+import { LOG_TITLE } from '../logger';
 
 type SlotsKeys = keyof typeof SLOTS;
 
