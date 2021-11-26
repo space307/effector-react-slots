@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: 'node:14.15.3-alpine3.10'
+      image: 'node:lts-alpine3.12'
 
     steps:
       - name: Checkouut

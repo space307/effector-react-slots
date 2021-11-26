@@ -19,7 +19,7 @@ import {
 
 describe('Test rendering', () => {
   test('Slots render [single]', () => {
-    let container = render(<ComponentWithSlots />).container;
+    let { container } = render(<ComponentWithSlots />);
 
     expect(container.firstChild).toBeNull();
 
@@ -43,7 +43,7 @@ describe('Test rendering', () => {
   });
 
   test('Slots render [multiple]', () => {
-    let container = render(<ComponentWithSlots />).container;
+    let { container } = render(<ComponentWithSlots />);
 
     act(() => {
       api.set({ id: SLOTS.MAIN, component: Heading });
@@ -69,7 +69,7 @@ describe('Test rendering', () => {
   });
 
   test('Slots render [hide and show]', () => {
-    render(<ComponentWithSlots />).container;
+    render(<ComponentWithSlots />);
 
     act(() => {
       api.set({ id: SLOTS.MAIN, component: Heading });
@@ -108,7 +108,7 @@ describe('Test rendering', () => {
   });
 
   test('Slot with fallback', () => {
-    let container = render(<ComponentWithFallbackSlot />).container;
+    let { container } = render(<ComponentWithFallbackSlot />);
 
     expect(screen.queryByText(FALLBACK_TEXT)).toBeInTheDocument();
 
