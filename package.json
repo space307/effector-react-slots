@@ -4,10 +4,9 @@
   "description": "Effector library for slots implementation in React",
   "type": "module",
   "source": "src/index.tsx",
-  "main": "dist/index.cjs",
-  "module": "dist/index.module.js",
-  "unpkg": "dist/index.umd.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "types": "dist/types.d.ts",
   "private": false,
   "files": [
     "dist"
@@ -24,7 +23,7 @@
     }
   ],
   "scripts": {
-    "build": "microbundle --compress --no-sourcemap --no-raw --jsx React.createElement",
+    "build": "parcel build --no-source-maps --no-cache --detailed-report",
     "doc:update-readme": "npx doctoc README.md",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prepublishOnly": "npm run build",
@@ -46,8 +45,10 @@
   ],
   "devDependencies": {
     "@arkweid/lefthook": "0.7",
-    "@testing-library/react": "12",
+    "@parcel/packager-ts": "^2.0.1",
+    "@parcel/transformer-typescript-types": "^2.0.1",
     "@testing-library/jest-dom": "5",
+    "@testing-library/react": "12",
     "@types/jest": "27",
     "@types/react": "17",
     "@types/react-dom": "17",
@@ -55,7 +56,7 @@
     "effector": "22",
     "effector-react": "22",
     "jest": "27",
-    "microbundle": "0.14.2",
+    "parcel": "^2.0.1",
     "prettier": "2",
     "react": "17",
     "react-dom": "17",
