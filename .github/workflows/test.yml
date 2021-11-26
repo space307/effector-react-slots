@@ -16,10 +16,9 @@ jobs:
       - name: Checkouut
         uses: actions/checkout@v2
 
-      - name: Install and build
+      - name: Install build
         run: |
           npm ci --silent
-          npm run build
 
-      - name: Run tests
-        run: npm t
+      - name: Build and test
+        run: npm run build & npm t && wait;
