@@ -9,15 +9,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.2.0
 
-- Feat: add `attachLogger`.
+- Feat: add `attachLogger`
 
 ## 2.1.1
 
-- Fix: build.
+- Fix: build
 
 ## 2.1.0
 
-- Feat: Now slot can contain fallback content that is rendered if no component are passed.
+- Feat: Now slot can contain fallback content that is rendered if no component are passed
 
 ## 2.0.0
 
