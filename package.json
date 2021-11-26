@@ -67,5 +67,8 @@
     "effector": ">= 21.8.0 <23",
     "effector-react": ">= 21.3.0 <23",
     "react": ">= 16.8 <18"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
   }
 }
