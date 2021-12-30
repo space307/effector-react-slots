@@ -30,7 +30,7 @@ jobs:
           run_install: true
 
       - name: Install
-        run: pnpm ci --silent --audit=false
+        run: pnpm i
 
       - name: Build and test
         run: pnpm run build & pnpm t && wait;
