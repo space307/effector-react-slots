@@ -1,4 +1,4 @@
-import { createApi, createStore, createEvent, guard, sample } from 'effector';
+import { createApi, createStore, guard, sample } from 'effector';
 import { useStoreMap } from 'effector-react';
 import React from 'react';
 
