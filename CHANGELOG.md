@@ -1,45 +1,74 @@
-# Change Log
+# Changelog
 
-This project adheres to [Semantic Versioning](http://semver.org/).
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 2.3.0
 
-- Style: simplified logger output
-- Feat: added `slotName` to `meta` of custom logger
+### Changed
+
+- simplified logger output
+- `slotName` to `meta` of custom logger
 
 ## 2.2.0
 
-- Feat: add `attachLogger`
+### Added
+
+- `attachLogger`
 
 ## 2.1.1
 
-- Fix: build
+### Fixed
+
+- build
 
 ## 2.1.0
 
-- Feat: Now slot can contain fallback content that is rendered if no component are passed
+### Changed
+
+- now slot can contain fallback content that is rendered if no component are passed
 
 ## 2.0.0
 
-- Breaking: stop return `$slot` from `createSlot`
-- Breaking: change `createSlotFactory` signature
-- Breaking: change `createSlot` signature
+### Removed
+
+- stop return `$slot` from `createSlot`
+
+### Changed
+
+- `createSlotFactory` signature
+- change `createSlot` signature
 
 ## 1.2.0
 
-- Feat: add `show` and `hide` to `api`
-- Test: fix suite
+### Added
+
+- `show` and `hide` to `api`
+
+### Fixed
+
+- test suite
 
 ## 1.1.6
 
-- Fix: types
+### Fixed
+
+- typings
 
 ## 1.1.0
 
-- Feat: returns `Slot` component from `createSlot` fn.
-- Deprecated: `$slot`. Looks useless
-- Build: clean publish
+### Changes
+
+- returns `Slot` component from `createSlot` fn.
+
+### Deprecated
+
+- `$slot`. Looks useless
 
 ## 1.0.0
+
+### Added
 
 - Hello, World!
