@@ -1,7 +1,7 @@
 INPUT_FILE=$1
 START_LINE=`head -n1 $INPUT_FILE`
-PATTERN="^(build|chore|ci|docs|feat|fix|maintain|perf|refactor|revert|structure|style|test): "
+PATTERN="^(added|changed|deprecated|removed|fixed|security): "
 if ! [[ "$START_LINE" =~ $PATTERN ]]; then
-  echo -e "Invalid commit message.\nCommit message must start with '(build|chore|ci|docs|feat|fix|perf|refactor|revert|structure|style|test):'"
+  echo -e "Invalid commit message.\nCommit message must start with '(added|changed|deprecated|removed|fixed|security):'"
   exit 1
 fi
