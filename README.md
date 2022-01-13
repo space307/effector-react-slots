@@ -4,9 +4,6 @@
 
 ![Made with love in ~/.space307](https://madewithlove.now.sh/ru?heart=true&colorA=%23000000&colorB=%2304b2b9&text=%7E%2F.space307)
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 - [What is a slot](#what-is-a-slot)
 - [Usage](#usage)
   - [Step 1](#step-1)
@@ -30,8 +27,6 @@
 - [TypeScript guide](#typescript-guide)
   - [createSlot](#createslot-1)
 - [Useful links](#useful-links)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## What is a slot
 
@@ -209,6 +204,7 @@ slotApi.attachLogger({
 #### Arguments
 
 ##### `fn`
+
 Optional. Function which could be used for logging.
 Accepts object:
 
