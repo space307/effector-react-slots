@@ -16,4 +16,4 @@ When contributing to this repository, please first discuss the change you wish t
 ## Preparing
 
 1. Clone repo
-2. Run `npm run install` or `yarn run install`
+2. Run `pnpm i`
