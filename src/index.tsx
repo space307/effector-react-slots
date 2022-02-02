@@ -25,3 +25,13 @@ export const createSlotFactory = <Id extends string>(slots: Record<SlotName, Id>
     createSlot: makeCreateSlot<Id>(api),
   };
 };
+
+class Wrapper<Id> {
+  // wrapped has no explicit return type so we can infer it
+  wrapped(e: Id) {
+    // @ts-expect-error
+    return createSlotFactory<Id>(e);
+  }
+}
+
+export type CreateSlotFactory<Id> = ReturnType<Wrapper<Id>['wrapped']>;
