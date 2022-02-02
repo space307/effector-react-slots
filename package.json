@@ -1,6 +1,6 @@
 {
   "name": "effector-react-slots",
-  "version": "2.4.0-next.0",
+  "version": "2.4.0-next.1",
   "description": "Effector library for slots implementation in React",
   "type": "module",
   "source": "src/index.tsx",
@@ -24,7 +24,6 @@
   ],
   "scripts": {
     "build": "parcel build --no-source-maps --no-cache --detailed-report",
-    "preinstall": "npx only-allow pnpm",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prepublishOnly": "pnpm run build",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
