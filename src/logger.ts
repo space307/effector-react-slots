@@ -5,7 +5,7 @@ import { ACTIONS } from './shared';
 import type { EventPayload } from 'effector';
 import type { SlotsApi, SlotName } from './shared';
 
-export type Logger<S, P, T> = (
+type Logger<S, P, T> = (
   _: Readonly<{
     message: string;
     meta: {
@@ -17,9 +17,9 @@ export type Logger<S, P, T> = (
 ) => unknown;
 type GetLogText<S, P, T> = (_: { action: S; slotId: P; slotName: T }) => string;
 
-export const LOG_TITLE = '[effector-react-slots]';
+const LOG_TITLE = '[effector-react-slots]';
 
-export const createLogger = <Id extends string>({
+const createLogger = <Id extends string>({
   api,
   slots,
 }: {
@@ -96,3 +96,6 @@ export const createLogger = <Id extends string>({
 
   return attachLogger;
 };
+
+export { LOG_TITLE, createLogger };
+export type { Logger };

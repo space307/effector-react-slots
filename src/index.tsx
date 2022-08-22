@@ -6,7 +6,7 @@ import { ACTIONS } from './shared';
 
 import type { SlotsApi, SlotName } from './shared';
 
-export const createSlotFactory = <Id extends string>(slots: Record<SlotName, Id>) => {
+const createSlotFactory = <Id extends string>(slots: Record<SlotName, Id>) => {
   const api: SlotsApi<Id> = {
     [ACTIONS.HIDE]: createEvent(),
     [ACTIONS.REMOVE]: createEvent(),
@@ -35,3 +35,4 @@ class Wrapper<Id> {
 }
 
 export type CreateSlotFactory<Id> = ReturnType<Wrapper<Id>['wrapped']>;
+export { createSlotFactory };

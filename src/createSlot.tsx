@@ -12,7 +12,9 @@ type SlotStore<S> = Readonly<{
   isVisible: boolean;
 }>;
 
-export const makeCreateSlot =
+type SlotProps<P> = P & { readonly children?: ReactNode };
+
+const makeCreateSlot =
   <Id extends string>(api: SlotsApi<Id>) =>
   <P,>(id: Id) => {
     const $slot = createStore<SlotStore<P>>({
@@ -21,13 +23,13 @@ export const makeCreateSlot =
     });
 
     const slotApi = createApi($slot, {
-      hide: (state) => (!state.isVisible ? undefined : { ...state, isVisible: false }),
-      remove: (state) => ({
-        ...state,
+      hide: (state) => (state.isVisible ? { component: state.component, isVisible: false } : undefined),
+      remove: ({ isVisible }) => ({
         component: $slot.defaultState.component,
+        isVisible,
       }),
-      set: (state, payload: Component<P>) => ({ ...state, component: payload }),
-      show: (state) => (state.isVisible ? undefined : { ...state, isVisible: true }),
+      set: ({ isVisible }, payload: Component<P>) => ({ component: payload, isVisible }),
+      show: (state) => (state.isVisible ? undefined : { component: state.component, isVisible: true }),
     });
 
     const isSlotEventCalling = (payload: Readonly<{ id: Id }>) => payload.id === id;
@@ -35,13 +37,13 @@ export const makeCreateSlot =
     guard({
       clock: api[ACTIONS.HIDE],
       filter: isSlotEventCalling,
-      target: slotApi.hide,
+      target: slotApi[ACTIONS.HIDE],
     });
 
     guard({
       clock: api[ACTIONS.REMOVE],
       filter: isSlotEventCalling,
-      target: slotApi.remove,
+      target: slotApi[ACTIONS.REMOVE],
     });
 
     sample({
@@ -50,16 +52,16 @@ export const makeCreateSlot =
         filter: isSlotEventCalling,
       }),
       fn: ({ component }) => component,
-      target: slotApi.set,
+      target: slotApi[ACTIONS.SET],
     });
 
     guard({
       clock: api[ACTIONS.SHOW],
       filter: isSlotEventCalling,
-      target: slotApi.show,
+      target: slotApi[ACTIONS.SHOW],
     });
 
-    const Slot = (props: P & { readonly children?: ReactNode } = {} as P) =>
+    const Slot = (props: SlotProps<P> = {} as P) =>
       useStoreMap({
         store: $slot,
         fn: ({ component: Component, isVisible }) => {
@@ -76,3 +78,5 @@ export const makeCreateSlot =
       Slot,
     };
   };
+
+export { makeCreateSlot };
