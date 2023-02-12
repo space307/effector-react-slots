@@ -7,7 +7,7 @@ type SlotsKeys = keyof typeof SLOTS;
 
 const SLOTS_NAMES = Object.entries(SLOTS).reduce(
   (acc, [key, value]) => ({ ...acc, [value]: key }),
-  {} as Record<typeof SLOTS[SlotsKeys], SlotsKeys>,
+  {} as Record<(typeof SLOTS)[SlotsKeys], SlotsKeys>,
 );
 
 describe('AttachLogger', () => {
